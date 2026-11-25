@@ -14,6 +14,6 @@ class HabitRepository {
   }
 
   Future<void> saveHabits(List<HabitModel> habits) async {
-    spHelper.setStringList(_storageKey, habits);
+    await spHelper.setStringList(_storageKey, habits);
   }
 }

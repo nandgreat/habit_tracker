@@ -15,9 +15,12 @@ class SharedPreferencesHelper {
   }
 
 
-  void setStringList(String key, List<HabitModel> habits) async{
+  Future<void> setStringList(String key, List<HabitModel> habits) async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = habits.map((habit) => jsonEncode(habit.toJson())).toList();
+
+    final raw = habits.map((habit) =>
+        jsonEncode(habit.toJson())).toList();
+
     await prefs.setStringList(key, raw);
   }
 }

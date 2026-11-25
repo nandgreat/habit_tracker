@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker/models/habit_model.dart';
+import 'package:get/get.dart';
+import 'package:habit_tracker/controllers/habit_controller.dart';
+
+//import 'package:habit_tracker/models/habit_model.dart';
 
 /// Week 3 topic in the lesson plan: a form with a text field, a save
 /// button, and basic validation. Returns the new [Habit] to the
@@ -21,14 +24,16 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     super.dispose();
   }
 
-  void _save() {
+  Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
-    final habit = HabitModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: _habitController.text.trim(),
-      createdAt: DateTime.now().toString(),
+
+    await Get.find<HabitController>().addHabit(
+      _habitController.text,
     );
-    Navigator.pop(context, habit);
+
+    if (!mounted) return;
+
+    Get.back();
   }
 
   @override
